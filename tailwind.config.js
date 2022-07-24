@@ -14,6 +14,7 @@ module.exports = {
         desktop: { max: "1248px" },
         ipad: { max: "1024px" },
         mobile: { max: "640px" },
+        smobile: { max: "460px" },
       },
       colors: {
         accent: "#A18A68",

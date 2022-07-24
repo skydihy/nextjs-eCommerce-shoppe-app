@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { FC } from "react";
 
-import AppLogo from "../../assets/SHOPPE.svg";
-import SearchIcon from "../../assets/search.svg";
-import ShoppingCartIcon from "../../assets/shopping-cart.svg";
-import ProfileIcon from "../../assets/profile.svg";
+import AppLogo from "../../assets/logo/SHOPPE.svg";
+import SearchIcon from "../../assets/icon/search.svg";
+import ShoppingCartIcon from "../../assets/icon/shopping-cart.svg";
+import ProfileIcon from "../../assets/icon/profile.svg";
 
 const Header: FC = () => {
   return (
@@ -34,13 +34,13 @@ const Header: FC = () => {
           </ul>
           <div className="bg-dark-gray w-[1px] h-[17px] mx-12" />
           <ul className="flex flex-row items-center space-x-10">
-            <li>
+            <li className="cursor-pointer">
               <SearchIcon />
             </li>
-            <li>
+            <li className="cursor-pointer">
               <ShoppingCartIcon />
             </li>
-            <li>
+            <li className="cursor-pointer">
               <ProfileIcon />
             </li>
           </ul>

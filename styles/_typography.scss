@@ -32,7 +32,6 @@ h5 {
 }
 
 @screen mobile {
-
   h1 {
     font-size: 1.25rem;
     line-heigh: 1.625rem;
@@ -44,12 +43,15 @@ h5 {
     letter-spacing: 10;
   }
 
-  h3 {
-    font-size: .875rem;
+  h3,
+  h4,
+  h5,
+  p {
+    font-size: 0.875rem;
   }
 
   .text-sm {
-    font-size: .75rem;
+    font-size: 0.75rem;
     line-height: 1.25rem;
     letter-spacing: 10;
   }

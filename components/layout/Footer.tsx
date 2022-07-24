@@ -1,5 +1,11 @@
 import { FC } from "react";
 
+import LinkinLogo from "../../assets/logo/linkedin.svg";
+import FacebookLogo from "../../assets/logo/facebook.svg";
+import InstagramLogo from "../../assets/logo/instagram.svg";
+import TwitterLogo from "../../assets/logo/twitter.svg";
+import RightArrow from "../../assets/icon/continue-arrow.svg";
+
 const Footer: FC = () => {
   return (
     <footer className="w-full mt-[250px]">
@@ -23,20 +29,24 @@ const Footer: FC = () => {
         </div>
 
         <div className="w-fit  mt-[3.375rem]">
-          <div className="flex flex-row justify-between border-b border-black space-x-32 pb-[14px]">
+          <div className="flex flex-row items-center justify-between border-b border-black space-x-32 pb-[14px]">
             <p className="text-dark-gray">Give an email, get the newsletter.</p>
-            <p>Right arrow</p>
+            <div className="cursor-pointer">
+              <RightArrow />
+            </div>
           </div>
           <ul className="flex flex-row justify-end space-x-8 mt-[3.125rem]">
-            <li className="cursor-pointer">In</li>
-            <li className="cursor-pointer">
-              <h5>FB</h5>
+            <li className="cursor-pointer w-[1.125rem] aspect-square">
+              <LinkinLogo />
             </li>
-            <li className="cursor-pointer">
-              <h5>IG</h5>
+            <li className="cursor-pointer w-[1.125rem] aspect-square">
+              <FacebookLogo />
             </li>
-            <li className="cursor-pointer">
-              <h5>TWT</h5>
+            <li className="cursor-pointer w-[1.125rem] aspect-square">
+              <InstagramLogo />
+            </li>
+            <li className="cursor-pointer w-[1.125rem] aspect-square">
+              <TwitterLogo />
             </li>
           </ul>
         </div>

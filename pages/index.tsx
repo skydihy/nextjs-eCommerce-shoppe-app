@@ -8,31 +8,15 @@ import { formatPrices } from "../utils";
 import Layout from "../components/layout/Layout";
 
 import { IProductDetail } from "../types/products";
+import ProductCard from "../components/ui/ProductCard";
 
 const Home: NextPage = () => {
   const renderProductList = useMemo(() => {
     return (
-      <div className="grid grid-cols-3 gap-16 mt-10">
-        {productList.map((productItem: IProductDetail) => {
-          return (
-            <div key={productItem.id} className="flex flex-col justify-start">
-              <div className="aspect-square rounded-2xl w-full">
-                <Image
-                  src={productItem.image}
-                  alt={productItem.name.toLocaleLowerCase()}
-                  width={380}
-                  height={380}
-                  layout="responsive"
-                  quality={95}
-                />
-              </div>
-              <h3 className="inline-block mt-6">{productItem.name}</h3>
-              <h4 className="text-accent inline-block mt-[1.125rem]">
-                {productItem.priceSymbol} {formatPrices(productItem.prices)}
-              </h4>
-            </div>
-          );
-        })}
+      <div className="grid grid-cols-3 gap-16 mt-10 mobile:grid-cols-2 smobile:grid-cols-1">
+        {productList.map((details: IProductDetail) => (
+          <ProductCard key={details.id} productItem={details} />
+        ))}
       </div>
     );
   }, []);
@@ -52,8 +36,10 @@ const Home: NextPage = () => {
           <div className="absolute flex flex-col gap-4 z-[1] top-1/2 left-10 text-white transform -translate-y-1/2">
             <h1 className="font-medium">Gold big hoops</h1>
             <h2>$ {formatPrices("68")}</h2>
-            <div className="px-8 py-[.875rem] border-2 border-white rounded-[.375rem] cursor-pointer mt-12 hover:opacity-70 transition-all">
-              <p className="text-xl font-bold text-center">VIEW PRODUCT</p>
+            <div className="px-8 py-[.875rem] border-2 border-white rounded-[.375rem] cursor-pointer mt-12 opacity-100 ease-in-out hover:opacity-70 transition-opacity mobile:px-4 mobile:py-[.625rem]">
+              <p className="text-xl font-bold text-center mobile:text-sm">
+                VIEW PRODUCT
+              </p>
             </div>
           </div>
         </div>
