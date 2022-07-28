@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { shuffle } from "lodash";
 import Image from "next/image";
+import ReactImageMagnify from "react-image-magnify";
 
 import { productList } from "../../../mockData";
 import Layout from "../../../components/layout/Layout";
@@ -35,7 +36,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 
   const renderSimilarItems = useMemo(() => {
     return (
-      <div className="grid grid-cols-3 gap-12 mt-12">
+      <div className="grid grid-cols-3 gap-12 mt-12 mobile:grid-cols-1">
         {similarList.map((product) => (
           <ProductCard key={product.id} productItem={product}></ProductCard>
         ))}
@@ -75,7 +76,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
       <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
         <div className="mt-[96px] grid product-detail-grid-layout">
           <div className="grid thumbnail-cover-grid-layout">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between mobile:hidden">
               <Image
                 className="rounded-lg"
                 src={displayProduct.image}
@@ -115,12 +116,28 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
             </div>
             <div>
               <div className="w-[540px h-[600px] relative">
+                {/* <ReactImageMagnify
+                  {...{
+                    smallImage: {
+                      alt: displayProduct.name,
+                      isFluidWidth: true,
+                      src: displayProduct.image,
+                    },
+                    largeImage: {
+                      src: displayProduct.image,
+                      width: 640,
+                      height: 768,
+                    },
+                    enlargedImageContainerDimensions: {
+                      width: '120%',
+                      height: '120%',
+                    },
+                  }}
+                /> */}
                 <Image
-                  className="absolute inset-0 object-cover rounded-lg"
+                  className="absolute inset-0 object-contain rounded-lg object-center"
                   src={displayProduct.image}
                   alt={displayProduct.name.toLocaleLowerCase()}
-                  width={540}
-                  height={600}
                   layout="fill"
                   quality={100}
                 />
@@ -150,7 +167,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
             </h5>
 
             <div className="grid total-item-grid-layout mt-12">
-              <div className="rounded bg-light-gray flex items-center space-x-6 px-4 justify-center text-dark-gray text-center w-max">
+              <div className="rounded bg-light-gray flex items-center h-[55px] space-x-6 px-4 justify-center text-dark-gray text-center w-max mobile:mx-auto">
                 <button onClick={handleDecreaseItem}>{`-`}</button>
                 <p className="w-[1rem]">{totalItem}</p>
                 <button onClick={handleIncreaseItem}>{`+`}</button>
@@ -172,7 +189,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
         </div>
 
         <div className="min-h-[237px] flex flex-col w-full mt-[6.1875rem]">
-          <div className="h-[3.75rem] border-b border-light-gray space-x-24 flex">
+          <div className="h-[3.75rem] border-b border-light-gray space-x-24 flex mobile:justify-between mobile:space-x-6">
             <div
               className={`cursor-pointer border-b ${
                 tab === CurrentTabs.Description ? "border-black" : "border-none"
@@ -242,7 +259,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
               </div>
             )}
             {tab === CurrentTabs.Review && (
-              <h5 className="text-dark-gray">No Reviews</h5>
+              <h5 className="text-dark-gray">No Other Reviews</h5>
             )}
           </div>
         </div>
