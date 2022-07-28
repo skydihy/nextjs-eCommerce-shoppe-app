@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useMemo } from "react";
 import type { NextPage } from "next";
+import Link from "next/link";
 
 import { productList } from "../mockData";
 import { formatPrices } from "../utils";
@@ -47,7 +48,9 @@ const Home: NextPage = () => {
         <div className="mt-16">
           <div className="flex justify-between">
             <h1 className="font-medium">Shop The Latest</h1>
-            <h4 className="font-medium text-accent">View All</h4>
+            <Link href={"/shop"}>
+              <h4 className="font-medium text-accent cursor-pointer">View All</h4>
+            </Link>
           </div>
         </div>
 

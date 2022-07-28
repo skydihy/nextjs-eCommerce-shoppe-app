@@ -1,0 +1,294 @@
+import { NextPage } from "next";
+import { shuffle } from "lodash";
+import Image from "next/image";
+
+import { productList } from "../../../mockData";
+import Layout from "../../../components/layout/Layout";
+import { formatPrices } from "../../../utils";
+
+import { IProductDetail } from "../../../types/products";
+import { useEffect, useMemo, useState } from "react";
+import ProductCard from "../../../components/ui/ProductCard";
+
+import Star from "../../../assets/icon/star.svg";
+
+interface ProductDetailProps {
+  loadedProduct: IProductDetail;
+  similarList: IProductDetail[];
+}
+
+enum CurrentTabs {
+  Description,
+  Addition,
+  Review,
+}
+
+const ProductDetail: NextPage<ProductDetailProps> = ({
+  loadedProduct,
+  similarList,
+}) => {
+  const { id } = loadedProduct;
+
+  const [totalItem, setTotalItem] = useState(1);
+  const [tab, setTab] = useState(CurrentTabs.Description); // FYI: Stock keeping units
+  const [displayProduct, setDisplayProduct] = useState(loadedProduct);
+
+  const renderSimilarItems = useMemo(() => {
+    return (
+      <div className="grid grid-cols-3 gap-12 mt-12">
+        {similarList.map((product) => (
+          <ProductCard key={product.id} productItem={product}></ProductCard>
+        ))}
+      </div>
+    );
+  }, [similarList]);
+
+  const handleDecreaseItem = () => {
+    if (totalItem - 1 === 0) return;
+
+    setTotalItem((prev) => prev - 1);
+  };
+
+  const handleIncreaseItem = () => {
+    if (totalItem + 1 > displayProduct.stockTotal) return;
+
+    setTotalItem((prev) => prev + 1);
+  };
+
+  const handleTabChange = (tab: CurrentTabs) => {
+    setTab(tab);
+  };
+
+  useEffect(() => {
+    const matchedProduct = productList.find((product) => product.id === id);
+    if (matchedProduct) {
+      setDisplayProduct(matchedProduct);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    setTotalItem(1);
+  }, [id]);
+
+  return (
+    <Layout>
+      <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+        <div className="mt-[96px] grid product-detail-grid-layout">
+          <div className="grid thumbnail-cover-grid-layout">
+            <div className="flex flex-col justify-between">
+              <Image
+                className="rounded-lg"
+                src={displayProduct.image}
+                alt={displayProduct.name.toLocaleLowerCase()}
+                width={120}
+                height={120}
+                layout="responsive"
+                quality={80}
+              />
+              <Image
+                className="rounded-lg"
+                src={displayProduct.image}
+                alt={displayProduct.name.toLocaleLowerCase()}
+                width={120}
+                height={120}
+                layout="responsive"
+                quality={80}
+              />
+              <Image
+                className="rounded-lg"
+                src={displayProduct.image}
+                alt={displayProduct.name.toLocaleLowerCase()}
+                width={120}
+                height={120}
+                layout="responsive"
+                quality={80}
+              />
+              <Image
+                className="rounded-lg"
+                src={displayProduct.image}
+                alt={displayProduct.name.toLocaleLowerCase()}
+                width={120}
+                height={120}
+                layout="responsive"
+                quality={80}
+              />
+            </div>
+            <div>
+              <div className="w-[540px h-[600px] relative">
+                <Image
+                  className="absolute inset-0 object-cover rounded-lg"
+                  src={displayProduct.image}
+                  alt={displayProduct.name.toLocaleLowerCase()}
+                  width={540}
+                  height={600}
+                  layout="fill"
+                  quality={100}
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2>{displayProduct.name}</h2>
+            <h4 className="text-accent inline-block mt-6">
+              {displayProduct.priceSymbol} {formatPrices(displayProduct.prices)}
+            </h4>
+            <div className="mt-16 flex items-center space-x-6">
+              <div className="flex items-center gap-2">
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+                <Star />
+              </div>
+              <h5 className="text-dark-gray">1 customer review</h5>
+            </div>
+            <h5 className="inline-block mt-5 text-dark-gray">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
+              placerat, augue a volutpat hendrerit, sapien tortor faucibus
+              augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu
+              facilisis consequat sed eu felis.
+            </h5>
+
+            <div className="grid total-item-grid-layout mt-12">
+              <div className="rounded bg-light-gray flex items-center space-x-6 px-4 justify-center text-dark-gray text-center w-max">
+                <button onClick={handleDecreaseItem}>{`-`}</button>
+                <p className="w-[1rem]">{totalItem}</p>
+                <button onClick={handleIncreaseItem}>{`+`}</button>
+              </div>
+              <div className="py-4 px-auto rounded border border-black text-center cursor-pointer">
+                <p>ADD TO CART</p>
+              </div>
+            </div>
+
+            <div className="space-x-4 flex mt-9">
+              <h5>SKU:</h5>
+              <h5 className="text-dark-gray">{displayProduct.stockTotal}</h5>
+            </div>
+            <div className="space-x-4 flex mt-[.375rem]">
+              <h5>Categories:</h5>
+              <h5 className="text-dark-gray">Fashion, Style</h5>
+            </div>
+          </div>
+        </div>
+
+        <div className="min-h-[237px] flex flex-col w-full mt-[6.1875rem]">
+          <div className="h-[3.75rem] border-b border-light-gray space-x-24 flex">
+            <div
+              className={`cursor-pointer border-b ${
+                tab === CurrentTabs.Description ? "border-black" : "border-none"
+              }`}
+              onClick={() => handleTabChange(CurrentTabs.Description)}
+            >
+              <h3
+                className={`${
+                  tab === CurrentTabs.Description
+                    ? "text-black"
+                    : "text-dark-gray"
+                }`}
+              >
+                Description
+              </h3>
+            </div>
+            <div
+              className={`cursor-pointer border-b ${
+                tab === CurrentTabs.Addition ? "border-black" : "border-none"
+              }`}
+              onClick={() => handleTabChange(CurrentTabs.Addition)}
+            >
+              <h3
+                className={`${
+                  tab === CurrentTabs.Addition ? "text-black" : "text-dark-gray"
+                }`}
+              >
+                Aditional information
+              </h3>
+            </div>
+            <div
+              className={`cursor-pointer border-b ${
+                tab === CurrentTabs.Review ? "border-black" : "border-none"
+              }`}
+              onClick={() => handleTabChange(CurrentTabs.Review)}
+            >
+              <h3
+                className={`${
+                  tab === CurrentTabs.Review ? "text-black" : "text-dark-gray"
+                }`}
+              >{`Reviews(0)`}</h3>
+            </div>
+          </div>
+
+          <div className="mt-[2.25rem]">
+            {tab === CurrentTabs.Description && (
+              <h5 className="text-dark-gray">{displayProduct.description}</h5>
+            )}
+            {tab === CurrentTabs.Addition && (
+              <div>
+                <div className="space-x-4 flex mt-[.375rem]">
+                  <h5>Weight:</h5>
+                  <h5 className="text-dark-gray">0.3 kg</h5>
+                </div>
+                <div className="space-x-4 flex mt-[.375rem]">
+                  <h5>Dimension:</h5>
+                  <h5 className="text-dark-gray">15 x 10 x 1 cm</h5>
+                </div>
+                <div className="space-x-4 flex mt-[.375rem]">
+                  <h5>Colours:</h5>
+                  <h5 className="text-dark-gray">Black, Browns, White</h5>
+                </div>
+                <div className="space-x-4 flex mt-[.375rem]">
+                  <h5>Material:</h5>
+                  <h5 className="text-dark-gray">Metal</h5>
+                </div>
+              </div>
+            )}
+            {tab === CurrentTabs.Review && (
+              <h5 className="text-dark-gray">No Reviews</h5>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-24">
+          <h2>Similar Items</h2>
+          {renderSimilarItems}
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export async function getStaticPaths() {
+  const ids = productList.map((product) => product.id);
+
+  const pathWithParams = ids.map((id) => ({
+    params: {
+      pid: id,
+    },
+  }));
+
+  return {
+    paths: pathWithParams,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: any) {
+  const { params } = context;
+  const productId = params.pid;
+
+  const preloadData = productList.find((product) => product.id === productId);
+
+  const similarItmesList = productList.filter(
+    (product) => product.id !== preloadData?.id
+  );
+  const randomList = shuffle(similarItmesList);
+  const candidateList = randomList.slice(1, 4);
+
+  return {
+    props: {
+      loadedProduct: preloadData,
+      similarList: candidateList,
+    },
+  };
+}
+
+export default ProductDetail;

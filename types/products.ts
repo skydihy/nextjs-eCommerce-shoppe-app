@@ -5,4 +5,5 @@ export interface IProductDetail {
   description: string;
   prices: string;
   priceSymbol: string;
+  stockTotal: number;
 }

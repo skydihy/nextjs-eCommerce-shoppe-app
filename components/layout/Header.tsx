@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from "next/link";
-import { FC, forwardRef } from "react";
+import { FC } from "react";
 
 import AppLogo from "../../assets/logo/SHOPPE.svg";
 import SearchIcon from "../../assets/icon/search.svg";
@@ -42,9 +42,9 @@ const Header: FC = () => {
             <li className="cursor-pointer">
               <ShoppingCartIcon />
             </li>
-            <li className="cursor-pointer">
+            {/* <li className="cursor-pointer">
               <ProfileIcon />
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

@@ -9,8 +9,8 @@ import RightArrow from "../../assets/icon/continue-arrow.svg";
 const Footer: FC = () => {
   return (
     <footer className="w-full mt-[250px]">
-      <div className="flex flex-wrap justify-between max-w-[1248px] mx-auto desktop:max-w-[90%] border-t border-light-gray pb-[106px]">
-        <div className="mt-[3.375rem] w-fit ">
+      <div className="grid footer-grid-layout justify-between max-w-[1248px] mx-auto desktop:max-w-[90%] border-t border-light-gray pb-[106px]">
+        <div className="mt-[3.375rem] w-fit">
           <ul className="flex flex-row space-x-16 text-dark-gray ">
             <li className="cursor-pointer">
               <h5>CONTACT</h5>
@@ -22,13 +22,13 @@ const Footer: FC = () => {
               <h5>SHIPPING AND RETURNS</h5>
             </li>
           </ul>
-          <h5 className="inline-block mt-12">
+          <h5 className="inline-block mt-12 ipad:w-full ipad:text-center">
             © 2021 Shelly. <span className="text-dark-gray">Terms of use</span>{" "}
             and <span className="text-dark-gray">privacy policy.</span>
           </h5>
         </div>
 
-        <div className="w-fit  mt-[3.375rem]">
+        <div className="w-fit mt-[3.375rem]">
           <div className="flex flex-row items-center justify-between border-b border-black space-x-32 pb-[14px]">
             <p className="text-dark-gray">Give an email, get the newsletter.</p>
             <div className="cursor-pointer">

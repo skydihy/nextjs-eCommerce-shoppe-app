@@ -1,4 +1,4 @@
-import { FC, HTMLInputTypeAttribute, LegacyRef } from "react";
+import { FC, HTMLInputTypeAttribute } from "react";
 
 interface InputProps {
   placeholder?: string;

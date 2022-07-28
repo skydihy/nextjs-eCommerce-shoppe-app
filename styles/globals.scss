@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./layout";
 @import "./_typography.scss";
 
 html {

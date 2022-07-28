@@ -6,14 +6,29 @@ import { productList } from "../../mockData";
 import Layout from "../../components/layout/Layout";
 import ProductCard from "../../components/ui/ProductCard";
 import InputField from "../../components/ui/InputField";
+import SelectorDropdown from "../../components/ui/SelectorDropdown";
+
 import Search from "../../assets/icon/search.svg";
 
 import { IProductDetail } from "../../types/products";
+import { useClickAway } from "react-use";
+
+export enum ShopSortings {
+  Name = "Name",
+  Prices = "Prices",
+}
 
 const Shop: NextPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [productDisplay, setProductDisplay] =
+  const [productStaging, setProductStaging] =
     useState<IProductDetail[]>(productList);
+  const [productDisplay, setProductDisplay] =
+    useState<IProductDetail[]>(productStaging);
+
+  const [showSelector, setShowSelector] = useState(false);
+  const [sortBy, setSortBy] = useState<ShopSortings | null>(null);
+
+  const selectorRef = useRef(null);
 
   const renderProductList = useMemo(() => {
     return (
@@ -30,7 +45,7 @@ const Shop: NextPage = () => {
 
     if (!findValue) {
       // set to default
-      setProductDisplay(productList);
+      setProductStaging(productList);
       return;
     }
 
@@ -38,11 +53,20 @@ const Shop: NextPage = () => {
       .slice()
       .filter((product) => product.name.toLowerCase().includes(findValue));
 
-    setProductDisplay(result);
+    setProductStaging(result);
   };
 
   const handleSearchChange = (e: any) => {
     setSearchValue(e.target.value);
+  };
+
+  const handleShowSelector = () => {
+    setShowSelector((prev) => !prev);
+  };
+
+  const handleSort = (value: ShopSortings | null) => {
+    setSortBy(value);
+    setShowSelector(false);
   };
 
   useEffect(() => {
@@ -52,6 +76,35 @@ const Shop: NextPage = () => {
       }
     });
   }, [searchValue]);
+
+  useEffect(() => {
+    switch (sortBy) {
+      case ShopSortings.Name: {
+        const sorted = productStaging
+          .slice()
+          .sort((a, b) => a.name.localeCompare(b.name));
+        setProductDisplay(sorted);
+        break;
+      }
+
+      case ShopSortings.Prices: {
+        const sorted = productStaging
+          .slice()
+          .sort((a, b) => +b.prices - +a.prices);
+        setProductDisplay(sorted);
+        break;
+      }
+
+      default: {
+        setProductDisplay(productStaging);
+        break;
+      }
+    }
+  }, [productStaging, sortBy]);
+
+  useClickAway(selectorRef, () => {
+    setShowSelector(false);
+  });
 
   return (
     <Layout>
@@ -73,6 +126,18 @@ const Shop: NextPage = () => {
                 value={searchValue}
                 onChange={handleSearchChange}
               />
+
+              <div className="mt-10">
+                <SelectorDropdown
+                  value={sortBy}
+                  optionList={[ShopSortings.Name, ShopSortings.Prices]}
+                  placeholder="Sort By"
+                  show={showSelector}
+                  onShow={handleShowSelector}
+                  onSelect={handleSort}
+                  ref={selectorRef}
+                />
+              </div>
             </div>
           </div>
           <div className="mt-[82px] w-full">{renderProductList}</div>

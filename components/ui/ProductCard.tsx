@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC } from "react";
+import Link from "next/link";
 
 import { formatPrices } from "../../utils";
 
@@ -13,14 +14,17 @@ const ProductCard: FC<ProductCardProps> = ({ productItem }) => {
   return (
     <div className="flex flex-col items-stretch group">
       <div className="relative aspect-square rounded-2xl w-full">
-        <Image
-          src={productItem.image}
-          alt={productItem.name.toLocaleLowerCase()}
-          width={380}
-          height={380}
-          layout="responsive"
-          quality={95}
-        />
+        <Link href={`/shop/product/${productItem.id}`} passHref>
+          <Image
+            className="cursor-pointer"
+            src={productItem.image}
+            alt={productItem.name.toLocaleLowerCase()}
+            width={380}
+            height={380}
+            layout="responsive"
+            quality={95}
+          />
+        </Link>
         <div className="absolute z-[2] bg-white/50 h-[4.0625rem] w-full flex justify-center items-center bottom-0 opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity duration-150">
           <p className="font-bold">ADD TO CART</p>
         </div>
