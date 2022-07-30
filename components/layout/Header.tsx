@@ -21,16 +21,18 @@ const Header: FC = () => {
         </div>
         <div className="flex flex-row items-center h-full">
           <ul className="flex flex-row space-x-16 h-full">
-            <li
-              className={`cursor-pointer flex items-center ${
-                pathname.slice(0, 5) === "/shop" ? "border-b border-black" : ""
-              }`}
-            >
-              <Link href="/shop" passHref>
+            <Link href="/shop" passHref>
+              <li
+                className={`cursor-pointer flex items-center ${
+                  pathname.slice(0, 5) === "/shop"
+                    ? "border-b border-black"
+                    : ""
+                }`}
+              >
                 <h5>Shop</h5>
-              </Link>
-            </li>
-            <li
+              </li>
+            </Link>
+            {/* <li
               className={`cursor-pointer flex items-center ${
                 pathname === "/blog" ? "border-b border-black" : ""
               }`}
@@ -38,16 +40,16 @@ const Header: FC = () => {
               <Link href="/blog" passHref>
                 <h5>Blog</h5>
               </Link>
-            </li>
-            <li
-              className={`cursor-pointer flex items-center ${
-                pathname === "/story" ? "border-b border-black" : ""
-              }`}
-            >
-              <Link href="/story" passHref>
+            </li> */}
+            <Link href="/story" passHref>
+              <li
+                className={`cursor-pointer flex items-center ${
+                  pathname === "/story" ? "border-b border-black" : ""
+                }`}
+              >
                 <h5>Our Story</h5>
-              </Link>
-            </li>
+              </li>
+            </Link>
           </ul>
           <div className="bg-dark-gray w-[1px] h-[17px] mx-12" />
           <ul className="flex flex-row items-center space-x-10">

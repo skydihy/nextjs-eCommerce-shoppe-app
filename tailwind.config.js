@@ -15,6 +15,8 @@ module.exports = {
         ipad: { max: "1024px" },
         mobile: { max: "640px" },
         smobile: { max: "460px" },
+        // Unique
+        story: { max: "670px" },
       },
       colors: {
         accent: "#A18A68",
