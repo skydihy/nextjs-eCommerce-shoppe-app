@@ -24,7 +24,7 @@ const SelectorDropdown = forwardRef((props: ISelectorDropdown, ref) => {
   } = props;
 
   return (
-    <div className="relative rounded border border-gray" ref={ref}>
+    <div className="relative rounded border border-gray z-50" ref={ref}>
       <div
         className="flex justify-between items-center cursor-pointer px-3 py-4"
         onClick={onShow}
@@ -42,7 +42,7 @@ const SelectorDropdown = forwardRef((props: ISelectorDropdown, ref) => {
       {show && (
         <ul className="absolute left-0 top-0 mt-16 w-full border rounded border-dark-gray group group-open:h-max">
           <li
-            className="w-full cursor-pointer px-3 py-4 text-sm text-dark-gray"
+            className="w-full cursor-pointer px-3 py-4 text-sm text-dark-gray bg-white rounded-tl rounded-tr hover:bg-light-gray transition-colors"
             onClick={() => onSelect(null)}
           >
             Default
@@ -50,7 +50,7 @@ const SelectorDropdown = forwardRef((props: ISelectorDropdown, ref) => {
           {optionList.map((option) => (
             <li
               key={option}
-              className="w-full cursor-pointer px-3 py-4 text-sm"
+              className="w-full cursor-pointer px-3 py-4 text-sm bg-white  hover:bg-light-gray last:rounded-bl last:rounded-br transition-colors"
               onClick={() => onSelect(option)}
             >
               {option}

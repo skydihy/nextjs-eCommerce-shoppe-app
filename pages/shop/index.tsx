@@ -14,8 +14,8 @@ import { IProductDetail } from "../../types/products";
 import { useClickAway } from "react-use";
 
 export enum ShopSortings {
-  Name = "Name",
-  Prices = "Prices",
+  Name = "Name (A-Z)",
+  Prices = "Prices ($$-$)",
 }
 
 const Shop: NextPage = () => {
@@ -32,7 +32,7 @@ const Shop: NextPage = () => {
 
   const renderProductList = useMemo(() => {
     return (
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-6 mobile:grid-cols-2">
         {productDisplay.map((details: IProductDetail) => (
           <ProductCard key={details.name} productItem={details} />
         ))}
@@ -109,10 +109,10 @@ const Shop: NextPage = () => {
   return (
     <Layout>
       <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
-        <div className="mt-[96px] flex flex-row gap-[35px]">
-          <div className=" max-w-[262px] w-full">
-            <h1 className="font-medium">Shop The Latest</h1>
-            <div className="relative mt-[38.82px]">
+        <div className="mt-[96px] flex flex-row gap-[35px] mobile:flex-col">
+          <div className="max-w-[262px] w-full mobile:max-w-full">
+            <h1 className="font-medium mobile:text-center">Shop The Latest</h1>
+            <div className="relative mt-[38.82px] mobile:w-full">
               <div
                 className="absolute top-0 right-0 cursor-pointer"
                 onClick={handleSearch}
@@ -121,7 +121,7 @@ const Shop: NextPage = () => {
               </div>
               <InputField
                 placeholder="Search..."
-                className="pr-[2rem]"
+                className="pr-[2rem] mobile:w-full"
                 type="text"
                 value={searchValue}
                 onChange={handleSearchChange}
@@ -140,7 +140,7 @@ const Shop: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="mt-[82px] w-full">{renderProductList}</div>
+          <div className="mt-[82px] w-full mobile:mt-0">{renderProductList}</div>
         </div>
       </div>
     </Layout>
