@@ -53,9 +53,9 @@ const Header: FC = () => {
           </ul>
           <div className="bg-dark-gray w-[1px] h-[17px] mx-12" />
           <ul className="flex flex-row items-center space-x-10">
-            <li className="cursor-pointer">
+            {/* <li className="cursor-pointer">
               <SearchIcon />
-            </li>
+            </li> */}
             <li className="cursor-pointer">
               <ShoppingCartIcon />
             </li>
