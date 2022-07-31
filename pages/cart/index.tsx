@@ -21,7 +21,7 @@ const Cart: NextPage = () => {
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
   const [haveChanges, setHaveChanges] = useState(false);
-  const [updateCalculation, setUpdateCalculation] = useState(true);
+  const [updateCalculation, setUpdateCalculation] = useState(false);
   const [previewList, setPreviewList] = useState<ICart[]>(cartListStore);
 
   const handleChanges = () => {
@@ -127,6 +127,18 @@ const Cart: NextPage = () => {
     setUpdateCalculation(false);
   }, [dispatch, previewList, updateCalculation]);
 
+  useEffect(() => {
+    const result = previewList.reduce((prev: number, cur: ICart) => {
+      return (prev += toNumber(cur.product.prices) * cur.amount);
+    }, 0);
+
+    setSubtotal(result);
+    setTotal(result + SHIPPING_COST);
+
+    setHaveChanges(false);
+    setUpdateCalculation(false);
+  }, []);
+
   return (
     <Layout>
       <div className="max-w-[1248px] w-full mx-auto desktop:max-w-[90%] pt-[107px]">
@@ -149,7 +161,12 @@ const Cart: NextPage = () => {
               </div>
 
               <div
-                onClick={handleCalculate}
+                onClick={() => {
+                  if (haveChanges) {
+                    return handleCalculate();
+                  }
+                  return null;
+                }}
                 className={`mt-14 ml-auto w-max px-[1.875rem] py-4 px-auto rounded border border-black text-center ${
                   haveChanges
                     ? "cursor-pointer opacity-100"

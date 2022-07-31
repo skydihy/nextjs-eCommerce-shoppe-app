@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import {
   clearStatus,
   popupStatus,
+  setStatus,
 } from "../../store/features/popup/popupSlice";
 
 import SuccessIcon from "../../assets/icon/success.svg";
@@ -15,6 +16,10 @@ const Popup: FC = () => {
   const popup = useAppSelector(popupStatus);
   const cartListStore = useAppSelector(cartList);
   const dispatch = useAppDispatch();
+
+  const handleEject = () => {
+    dispatch(clearStatus());
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,12 +38,17 @@ const Popup: FC = () => {
       >
         {popup.status === PopupStatus.success && (
           <>
-            <div className="flex flex-row space-x-4 items-center">
+            <div
+              onClick={handleEject}
+              className="flex flex-row space-x-4 items-center cursor-pointer"
+            >
               <SuccessIcon />
               <h5>{popup.message}</h5>
             </div>
             <Link href="/cart" className="text-accent font-bold">
-              <div className="cursor-pointer">({cartListStore.length}) VIEW CART</div>
+              <div className="cursor-pointer">
+                ({cartListStore.length}) VIEW CART
+              </div>
             </Link>
           </>
         )}
