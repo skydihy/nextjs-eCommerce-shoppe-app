@@ -9,6 +9,7 @@ import {
 import SuccessIcon from "../../assets/icon/success.svg";
 import { PopupStatus } from "../../store/features/popup/type";
 import { cartList } from "../../store/features/cart/cartSlice";
+import Link from "next/link";
 
 const Popup: FC = () => {
   const popup = useAppSelector(popupStatus);
@@ -36,9 +37,9 @@ const Popup: FC = () => {
               <SuccessIcon />
               <h5>{popup.message}</h5>
             </div>
-            <a href={popup.links ?? "/cart"} className="text-accent font-bold">
-              ({cartListStore.length}) VIEW CART
-            </a>
+            <Link href="/cart" className="text-accent font-bold">
+              <div className="cursor-pointer">({cartListStore.length}) VIEW CART</div>
+            </Link>
           </>
         )}
 

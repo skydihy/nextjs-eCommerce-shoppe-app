@@ -15,9 +15,9 @@ const Header: FC = () => {
     <nav className="fixed h-[107px] w-full z-50 bg-white/95">
       <div className="flex flex-row items-center justify-between h-full max-w-[1248px]  border-b-[1px] border-light-gray mx-auto desktop:max-w-[90%] ipad:hidden">
         <div className="cursor-pointer">
-          <a href="/">
+          <Link href="/" passHref>
             <AppLogo />
-          </a>
+          </Link>
         </div>
         <div className="flex flex-row items-center h-full">
           <ul className="flex flex-row space-x-16 h-full">
@@ -56,9 +56,11 @@ const Header: FC = () => {
             {/* <li className="cursor-pointer">
               <SearchIcon />
             </li> */}
-            <li className="cursor-pointer">
-              <ShoppingCartIcon />
-            </li>
+            <Link href="/cart" passHref>
+              <li className="cursor-pointer">
+                <ShoppingCartIcon />
+              </li>
+            </Link>
             {/* <li className="cursor-pointer">
               <ProfileIcon />
             </li> */}
