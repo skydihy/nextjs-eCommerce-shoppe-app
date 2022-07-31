@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import Link from "next/link";
 
 import { formatPrices } from "../../utils";
@@ -8,9 +8,10 @@ import { IProductDetail } from "../../types/products";
 
 interface ProductCardProps {
   productItem: IProductDetail;
+  onAddCart: any;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ productItem }) => {
+const ProductCard: FC<ProductCardProps> = ({ productItem, onAddCart }) => {
   return (
     <div className="flex flex-col items-stretch group">
       <div className="relative aspect-square rounded-2xl w-full">
@@ -25,7 +26,10 @@ const ProductCard: FC<ProductCardProps> = ({ productItem }) => {
             quality={95}
           />
         </Link>
-        <div className="absolute z-[2] bg-white/50 h-[4.0625rem] w-full flex justify-center items-center bottom-0 opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity duration-150">
+        <div
+          onClick={onAddCart}
+          className="absolute z-[2] bg-white/50 h-[4.0625rem] w-full flex justify-center items-center bottom-0 opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity duration-150"
+        >
           <p className="font-bold">ADD TO CART</p>
         </div>
       </div>

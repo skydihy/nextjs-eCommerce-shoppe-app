@@ -8,10 +8,14 @@ import Layout from "../../../components/layout/Layout";
 import { formatPrices } from "../../../utils";
 
 import { IProductDetail } from "../../../types/products";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ProductCard from "../../../components/ui/ProductCard";
 
 import Star from "../../../assets/icon/star.svg";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { addCart, cartList } from "../../../store/features/cart/cartSlice";
+import { setStatus } from "../../../store/features/popup/popupSlice";
+import { PopupStatus } from "../../../store/features/popup/type";
 
 interface ProductDetailProps {
   loadedProduct: IProductDetail;
@@ -29,20 +33,12 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
   similarList,
 }) => {
   const { id } = loadedProduct;
+  const dispatch = useAppDispatch();
+  const cartListStore = useAppSelector(cartList);
 
   const [totalItem, setTotalItem] = useState(1);
   const [tab, setTab] = useState(CurrentTabs.Description); // FYI: Stock keeping units
   const [displayProduct, setDisplayProduct] = useState(loadedProduct);
-
-  const renderSimilarItems = useMemo(() => {
-    return (
-      <div className="grid grid-cols-3 gap-12 mt-12 mobile:grid-cols-1">
-        {similarList.map((product) => (
-          <ProductCard key={product.id} productItem={product}></ProductCard>
-        ))}
-      </div>
-    );
-  }, [similarList]);
 
   const handleDecreaseItem = () => {
     if (totalItem - 1 === 0) return;
@@ -59,6 +55,58 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
   const handleTabChange = (tab: CurrentTabs) => {
     setTab(tab);
   };
+
+  const handleAddCart = useCallback(
+    (item: IProductDetail) => {
+      const cartMatched = cartListStore.find(
+        (cart) => cart.product.id === item.id
+      );
+
+      if (cartMatched) {
+        if (cartMatched.amount + totalItem > item.stockTotal) {
+          dispatch(
+            setStatus({
+              status: PopupStatus.failed,
+              message:
+                "The amount in the cart exceeds the number of products available.",
+            })
+          );
+
+          return;
+        }
+      }
+
+      dispatch(
+        addCart({
+          product: item,
+          amount: totalItem,
+        })
+      );
+
+      dispatch(
+        setStatus({
+          status: PopupStatus.success,
+          message: "The item added to your Shopping bag.",
+          link:'/cart'
+        })
+      );
+    },
+    [cartListStore, dispatch, totalItem]
+  );
+
+  const renderSimilarItems = useMemo(() => {
+    return (
+      <div className="grid grid-cols-3 gap-12 mt-12 mobile:grid-cols-1">
+        {similarList.map((product) => (
+          <ProductCard
+            key={product.id}
+            productItem={product}
+            onAddCart={() => handleAddCart(product)}
+          />
+        ))}
+      </div>
+    );
+  }, [similarList, handleAddCart]);
 
   useEffect(() => {
     const matchedProduct = productList.find((product) => product.id === id);
@@ -172,7 +220,10 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
                 <p className="w-[1rem]">{totalItem}</p>
                 <button onClick={handleIncreaseItem}>{`+`}</button>
               </div>
-              <div className="py-4 px-auto rounded border border-black text-center cursor-pointer">
+              <div
+                onClick={() => handleAddCart(displayProduct)}
+                className="py-4 px-auto rounded border border-black text-center cursor-pointer"
+              >
                 <p>ADD TO CART</p>
               </div>
             </div>

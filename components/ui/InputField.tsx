@@ -22,6 +22,7 @@ const InputField: FC<InputProps> = ({
       value={value}
       onChange={onChange}
       type={type}
+      autoComplete="off"
     />
   );
 };

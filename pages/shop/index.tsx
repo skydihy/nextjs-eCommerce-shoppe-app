@@ -1,5 +1,8 @@
 import { NextPage } from "next";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { addCart, cartList } from "../../store/features/cart/cartSlice";
+import { useClickAway } from "react-use";
 
 import { productList } from "../../mockData";
 
@@ -11,7 +14,8 @@ import SelectorDropdown from "../../components/ui/SelectorDropdown";
 import Search from "../../assets/icon/search.svg";
 
 import { IProductDetail } from "../../types/products";
-import { useClickAway } from "react-use";
+import { setStatus } from "../../store/features/popup/popupSlice";
+import { PopupStatus } from "../../store/features/popup/type";
 
 export enum ShopSortings {
   Name = "Name (A-Z)",
@@ -19,6 +23,9 @@ export enum ShopSortings {
 }
 
 const Shop: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const cartListStore = useAppSelector(cartList);
+
   const [searchValue, setSearchValue] = useState<string>("");
   const [productStaging, setProductStaging] =
     useState<IProductDetail[]>(productList);
@@ -29,16 +36,6 @@ const Shop: NextPage = () => {
   const [sortBy, setSortBy] = useState<ShopSortings | null>(null);
 
   const selectorRef = useRef(null);
-
-  const renderProductList = useMemo(() => {
-    return (
-      <div className="grid grid-cols-3 gap-6 mobile:grid-cols-2">
-        {productDisplay.map((details: IProductDetail) => (
-          <ProductCard key={details.name} productItem={details} />
-        ))}
-      </div>
-    );
-  }, [productDisplay]);
 
   const handleSearch = () => {
     const findValue = searchValue.trim().toLowerCase();
@@ -68,6 +65,58 @@ const Shop: NextPage = () => {
     setSortBy(value);
     setShowSelector(false);
   };
+
+  const handleAddCart = useCallback(
+    (item: IProductDetail) => {
+      const cartMatched = cartListStore.find(
+        (cart) => cart.product.id === item.id
+      );
+
+      if (cartMatched) {
+        if (cartMatched.amount === item.stockTotal) {
+          dispatch(
+            setStatus({
+              status: PopupStatus.failed,
+              message:
+                "The amount in the cart exceeds the number of products available.",
+            })
+          );
+
+          return;
+        }
+      }
+
+      dispatch(
+        addCart({
+          product: item,
+          amount: 1,
+        })
+      );
+
+      dispatch(
+        setStatus({
+          status: PopupStatus.success,
+          message: "The item added to your Shopping bag.",
+          link:'/cart'
+        })
+      );
+    },
+    [cartListStore, dispatch]
+  );
+
+  const renderProductList = useMemo(() => {
+    return (
+      <div className="grid grid-cols-3 gap-6 mobile:grid-cols-2">
+        {productDisplay.map((details: IProductDetail) => (
+          <ProductCard
+            key={details.name}
+            productItem={details}
+            onAddCart={() => handleAddCart(details)}
+          />
+        ))}
+      </div>
+    );
+  }, [handleAddCart, productDisplay]);
 
   useEffect(() => {
     window.addEventListener("keypress", (e) => {
@@ -140,7 +189,9 @@ const Shop: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="mt-[82px] w-full mobile:mt-0">{renderProductList}</div>
+          <div className="mt-[82px] w-full mobile:mt-0">
+            {renderProductList}
+          </div>
         </div>
       </div>
     </Layout>

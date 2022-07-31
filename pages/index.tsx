@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import type { NextPage } from "next";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "../store";
+import { addCart, cartList } from "../store/features/cart/cartSlice";
 
 import { productList } from "../mockData";
 import { formatPrices } from "../utils";
@@ -10,17 +12,64 @@ import Layout from "../components/layout/Layout";
 
 import { IProductDetail } from "../types/products";
 import ProductCard from "../components/ui/ProductCard";
+import { setStatus } from "../store/features/popup/popupSlice";
+import { PopupStatus } from "../store/features/popup/type";
 
 const Home: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const cartListStore = useAppSelector(cartList);
+
+  const handleAddCart = useCallback(
+    (item: IProductDetail) => {
+      const cartMatched = cartListStore.find(
+        (cart) => cart.product.id === item.id
+      );
+
+      if (cartMatched) {
+        if (cartMatched.amount === item.stockTotal) {
+          dispatch(
+            setStatus({
+              status: PopupStatus.failed,
+              message:
+                "The amount in the cart exceeds the number of products available.",
+            })
+          );
+
+          return;
+        }
+      }
+
+      dispatch(
+        addCart({
+          product: item,
+          amount: 1,
+        })
+      );
+
+      dispatch(
+        setStatus({
+          status: PopupStatus.success,
+          message: "The item added to your Shopping bag.",
+          link: "/cart",
+        })
+      );
+    },
+    [cartListStore, dispatch]
+  );
+
   const renderProductList = useMemo(() => {
     return (
       <div className="grid grid-cols-3 gap-16 mt-10 mobile:grid-cols-2 smobile:grid-cols-1">
         {productList.map((details: IProductDetail) => (
-          <ProductCard key={details.id} productItem={details} />
+          <ProductCard
+            key={details.id}
+            productItem={details}
+            onAddCart={() => handleAddCart(details)}
+          />
         ))}
       </div>
     );
-  }, []);
+  }, [handleAddCart]);
 
   return (
     <Layout>
@@ -49,7 +98,9 @@ const Home: NextPage = () => {
           <div className="flex justify-between">
             <h1 className="font-medium">Shop The Latest</h1>
             <Link href={"/shop"}>
-              <h4 className="font-medium text-accent cursor-pointer">View All</h4>
+              <h4 className="font-medium text-accent cursor-pointer">
+                View All
+              </h4>
             </Link>
           </div>
         </div>
