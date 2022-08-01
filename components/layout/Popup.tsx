@@ -47,7 +47,8 @@ const Popup: FC = () => {
             </div>
             <Link href="/cart" className="text-accent font-bold">
               <div className="cursor-pointer">
-                ({cartListStore.length}) VIEW CART
+                ({cartListStore.length === 0 ? "empty" : cartListStore.length})
+                VIEW CART
               </div>
             </Link>
           </>

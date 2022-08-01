@@ -6,7 +6,7 @@ import Layout from "../components/layout/Layout";
 const Error: NextPage = () => {
   return (
     <Layout>
-      <div className="flex flex-col text-center justify-center items-center h-screen -mb-[250px] max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="flex flex-col text-center justify-center items-center h-screen -mb-[250px] max-w-[1248px] mx-auto desktop:max-w-[80%] pt-[107px]">
         <h1>404 ERROR</h1>
         <h3 className="text-dark-gray mt-6 inline-block">
           This page not found;

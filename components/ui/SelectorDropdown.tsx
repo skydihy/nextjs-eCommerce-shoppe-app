@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import {  forwardRef } from "react";
+import { forwardRef, RefObject } from "react";
 import ChevDown from "../../assets/icon/chev-down.svg";
 
 import { ShopSortings } from "../../pages/shop";
@@ -24,7 +24,10 @@ const SelectorDropdown = forwardRef((props: ISelectorDropdown, ref) => {
   } = props;
 
   return (
-    <div className="relative rounded border border-gray z-50" ref={ref}>
+    <div
+      className="relative rounded border border-gray z-50"
+      ref={ref as RefObject<HTMLDivElement>}
+    >
       <div
         className="flex justify-between items-center cursor-pointer px-3 py-4"
         onClick={onShow}

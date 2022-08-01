@@ -119,11 +119,7 @@ const Shop: NextPage = () => {
   }, [handleAddCart, productDisplay]);
 
   useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        handleSearch();
-      }
-    });
+    handleSearch()
   }, [searchValue]);
 
   useEffect(() => {
@@ -157,7 +153,7 @@ const Shop: NextPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="mt-[96px] flex flex-row gap-[35px] mobile:flex-col">
           <div className="max-w-[262px] w-full mobile:max-w-full">
             <h1 className="font-medium mobile:text-center">Shop The Latest</h1>

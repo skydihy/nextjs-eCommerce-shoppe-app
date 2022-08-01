@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import { shuffle } from "lodash";
 import Image from "next/image";
-import ReactImageMagnify from "react-image-magnify";
 
 import { productList } from "../../../mockData";
 import Layout from "../../../components/layout/Layout";
@@ -121,7 +120,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 
   return (
     <Layout>
-      <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="mt-[96px] grid product-detail-grid-layout">
           <div className="grid thumbnail-cover-grid-layout">
             <div className="flex flex-col justify-between mobile:hidden">

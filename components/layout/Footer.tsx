@@ -9,7 +9,7 @@ import RightArrow from "../../assets/icon/continue-arrow.svg";
 const Footer: FC = () => {
   return (
     <footer className="w-full mt-[250px]">
-      <div className="grid footer-grid-layout justify-between max-w-[1248px] mx-auto desktop:max-w-[90%] border-t border-light-gray pb-[106px]">
+      <div className="grid footer-grid-layout justify-between max-w-[1248px] mx-auto desktop:max-w-[80%] border-t border-light-gray pb-[106px]">
         <div className="mt-[3.375rem] w-fit">
           <ul className="flex flex-row space-x-16 text-dark-gray ">
             <li className="cursor-pointer">

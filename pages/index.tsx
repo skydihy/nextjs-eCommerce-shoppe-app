@@ -73,7 +73,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="relative w-full h-max flex flex-col items-center justify-start">
           <Image
             className="rounded-2xl absolute inset-0 z-0"

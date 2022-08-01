@@ -9,19 +9,19 @@ import { useAppSelector } from "../../../store";
 import { cart, cartList } from "../../../store/features/cart/cartSlice";
 
 import { ICart } from "../../../store/features/cart/type";
+import { formatPrices } from "../../../utils";
 
 const Checkout: NextPage = () => {
   const cartStore = useAppSelector(cart);
-  const router = useRouter()
+  const router = useRouter();
 
   const [orderNo, setOrderNo] = useState("");
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-
-    if(cartStore.cartList.length <= 0) {
-      router.push('/cart')
+    if (cartStore.cartList.length <= 0) {
+      router.push("/cart");
     }
 
     const result = cartStore.cartList.reduce((prev: number, cur: ICart) => {
@@ -37,7 +37,7 @@ const Checkout: NextPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-[1248px] w-full mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] w-full mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="mt-[96px] grid grid-cols-2 gap-[166px] ipad:grid-cols-1">
           <div>
             <h2>Order Details</h2>
@@ -61,15 +61,15 @@ const Checkout: NextPage = () => {
                   Kristian holst 34 old street W1F 7NU london United Kingdom
                 </h5>
               </div>
-              
+
               <div className="flex flex-col space-y-[6px] mt-7">
                 <h5>PAYMENT METHOD</h5>
                 <h5 className="text-dark-gray">Mastercard*************7865</h5>
               </div>
-              
+
               <div className="flex flex-col space-y-[6px] mt-7">
                 <h5>ORDER DATE</h5>
-                <h5 className="text-dark-gray">{moment().format('LL')}</h5>
+                <h5 className="text-dark-gray">{moment().format("LL")}</h5>
               </div>
               <div className="flex flex-col space-y-[6px] mt-7">
                 <h5>CONTACT NUMBER</h5>
@@ -96,7 +96,7 @@ const Checkout: NextPage = () => {
                 <h5 className="text-dark-gray my-2">{cart.product.name}</h5>
                 <h5 className="text-dark-gray my-2 text-end">
                   {cart.product.priceSymbol}{" "}
-                  {toNumber(cart.product.prices) * cart.amount}
+                  {formatPrices(toNumber(cart.product.prices) * cart.amount)}
                 </h5>
               </div>
             ))}
@@ -104,7 +104,7 @@ const Checkout: NextPage = () => {
             <div className="grid grid-cols-2 items-center px-[60px] bg-light-gray">
               <h5 className="border-t border-gray py-4">SUBTOTAL</h5>
               <h5 className="text-dark-gray text-end border-t border-gray py-4">
-                $ {subtotal}
+                $ {formatPrices(subtotal)}
               </h5>
             </div>
             <div className="grid grid-cols-2 items-center px-[60px] bg-light-gray">
@@ -118,7 +118,7 @@ const Checkout: NextPage = () => {
                 TOTAL
               </h5>
               <h5 className="text-end pb-10 border-t border-gray pt-4 font-bold">
-                {total}
+                {formatPrices(total)}
               </h5>
             </div>
           </div>

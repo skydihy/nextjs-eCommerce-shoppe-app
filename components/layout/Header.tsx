@@ -13,7 +13,7 @@ const Header: FC = () => {
 
   return (
     <nav className="fixed h-[107px] w-full z-50 bg-white/95">
-      <div className="flex flex-row items-center justify-between h-full max-w-[1248px]  border-b-[1px] border-light-gray mx-auto desktop:max-w-[90%] ipad:hidden">
+      <div className="flex flex-row items-center justify-between h-full max-w-[1248px]  border-b-[1px] border-light-gray mx-auto desktop:max-w-[80%] ipad:hidden">
         <div className="cursor-pointer">
           <Link href="/" passHref>
             <AppLogo />
