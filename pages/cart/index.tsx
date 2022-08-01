@@ -147,18 +147,24 @@ const Cart: NextPage = () => {
 
           <div className="grid grid-cols-2 gap-20 ipad:grid-cols-1">
             <div className="flex flex-col">
-              <div className="flex flex-col space-y-10">
-                {previewList.map((cart) => (
-                  <ProductCartRow
-                    key={cart.cartId}
-                    cart={cart}
-                    onHaveChanges={handleChanges}
-                    onIncrease={handleIncreasePreview}
-                    onDecrease={handleDecreasePreview}
-                    onRemove={handleRemovePreview}
-                  />
-                ))}
-              </div>
+              {previewList.length > 0 ? (
+                <div className="flex flex-col space-y-10">
+                  {previewList.map((cart) => (
+                    <ProductCartRow
+                      key={cart.cartId}
+                      cart={cart}
+                      onHaveChanges={handleChanges}
+                      onIncrease={handleIncreasePreview}
+                      onDecrease={handleDecreasePreview}
+                      onRemove={handleRemovePreview}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex justify-center">
+                  <p className="text-dark-gray">Cart is empty</p>
+                </div>
+              )}
 
               <div
                 onClick={() => {
@@ -181,7 +187,7 @@ const Cart: NextPage = () => {
               <p className="text-[1.625rem]">Cart totals</p>
               <div className="grid grid-cols-2 gap-6 mt-11">
                 <p>SUBTOTAL</p>
-                <p className="text-dark-gray">$ {subtotal}</p>
+                <p className="text-dark-gray">$ {formatPrices(subtotal)}</p>
                 <p>SHIPPING</p>
                 <p className="text-dark-gray">
                   Shipping costs will be calculated once you have provided
@@ -194,7 +200,7 @@ const Cart: NextPage = () => {
               {subtotal > 0 && (
                 <div className="flex justify-between mt-10 font-bold">
                   <p>TOTAL</p>
-                  <p>$ {total}</p>
+                  <p>$ {formatPrices(total)}</p>
                 </div>
               )}
 

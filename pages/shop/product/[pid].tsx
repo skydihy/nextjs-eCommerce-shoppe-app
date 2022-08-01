@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import { shuffle } from "lodash";
 import Image from "next/image";
-import ReactImageMagnify from "react-image-magnify";
 
 import { productList } from "../../../mockData";
 import Layout from "../../../components/layout/Layout";
