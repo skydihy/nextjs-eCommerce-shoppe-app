@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./layout";
+@import "./_typography.scss";
+
+html {
+  font-family: "DM Sans", sans-serif;
+}
+
+body {
+  font-size: calc(15.4 + 1 * (100vw - 320px) / (1248 - 320));
+  overflow-x: hidden;
+}
+
+input {
+  font-family: "DM Sans", sans-serif;
+  padding-bottom: .75rem;
+  width: 100%;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+input::placeholder {
+  color: #707070;
+}
+
+input:focus {
+  outline:none
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 1248px) {
+  body {
+    font-size: 16px;
+  }
+}
