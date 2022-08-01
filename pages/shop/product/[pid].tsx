@@ -120,7 +120,7 @@ const ProductDetail: NextPage<ProductDetailProps> = ({
 
   return (
     <Layout>
-      <div className="max-w-[1248px] mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="mt-[96px] grid product-detail-grid-layout">
           <div className="grid thumbnail-cover-grid-layout">
             <div className="flex flex-col justify-between mobile:hidden">

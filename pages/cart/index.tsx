@@ -141,7 +141,7 @@ const Cart: NextPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-[1248px] w-full mx-auto desktop:max-w-[90%] pt-[107px]">
+      <div className="max-w-[1248px] w-full mx-auto desktop:max-w-[80%] pt-[107px]">
         <div className="mt-[96px] flex flex-col items-center gap-16 ipad:flex-col">
           <h1>Shopping Cart</h1>
 

@@ -6,7 +6,7 @@ import Layout from "../../components/layout/Layout";
 const Story: NextPage = () => {
   return (
     <Layout>
-      <div className="max-w-[670px] mx-auto story:max-w-[90%] pt-[107px]">
+      <div className="max-w-[670px] mx-auto story:max-w-[80%] pt-[107px]">
         <div className="mt-24 flex flex-col items-start">
           <h1 className="self-center">About</h1>
           <h3 className="inline-block mt-6 self-center">
