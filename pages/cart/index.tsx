@@ -12,7 +12,7 @@ import { setStatus } from "../../store/features/popup/popupSlice";
 import { PopupStatus } from "../../store/features/popup/type";
 import { formatPrices } from "../../utils";
 
-const SHIPPING_COST = 7.49;
+export const SHIPPING_COST = 7.49;
 
 const Cart: NextPage = () => {
   const cartListStore = useAppSelector(cartList);
@@ -191,16 +191,24 @@ const Cart: NextPage = () => {
 
               <div className="w-full bg-light-gray h-[1px] mt-10" />
 
-              <div className="flex justify-between mt-10 font-bold">
-                <p>TOTAL</p>
-                <p>$ {total}</p>
-              </div>
+              {subtotal > 0 && (
+                <div className="flex justify-between mt-10 font-bold">
+                  <p>TOTAL</p>
+                  <p>$ {total}</p>
+                </div>
+              )}
 
-              <Link href="/cart/checkout" passHref>
-                <div className="bg-black w-full flex justify-center items-center text-white py-4 cursor-pointer mt-16">
+              {cartListStore.length > 0 ? (
+                <Link href="/cart/checkout" passHref>
+                  <div className="bg-black w-full flex justify-center items-center text-white py-4 cursor-pointer mt-16">
+                    <p>PROCEED TO CHECKOUT</p>
+                  </div>
+                </Link>
+              ) : (
+                <div className="bg-black/50 w-full flex justify-center items-center text-white py-4 cursor-not-allowed mt-16">
                   <p>PROCEED TO CHECKOUT</p>
                 </div>
-              </Link>
+              )}
             </div>
           </div>
         </div>

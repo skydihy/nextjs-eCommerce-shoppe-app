@@ -24,7 +24,7 @@ const Popup: FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(clearStatus());
-    }, 5000);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, [dispatch, popup.status]);

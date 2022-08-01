@@ -12,18 +12,18 @@ interface CartState {
 
 const initialState: CartState = {
   cartList: [
-    {
-      cartId: "asdasd",
-      product: productList[0],
-      amount: 2,
-      status: "unconfirmed",
-    },
-    {
-      cartId: "asssdasd",
-      product: productList[1],
-      amount: 1,
-      status: "unconfirmed",
-    },
+    // {
+    //   cartId: "asdasd",
+    //   product: productList[0],
+    //   amount: 2,
+    //   status: "unconfirmed",
+    // },
+    // {
+    //   cartId: "asssdasd",
+    //   product: productList[1],
+    //   amount: 1,
+    //   status: "unconfirmed",
+    // },
   ],
 };
 
