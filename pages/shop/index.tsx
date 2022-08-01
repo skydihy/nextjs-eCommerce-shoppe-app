@@ -119,11 +119,7 @@ const Shop: NextPage = () => {
   }, [handleAddCart, productDisplay]);
 
   useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        handleSearch();
-      }
-    });
+    handleSearch()
   }, [searchValue]);
 
   useEffect(() => {
