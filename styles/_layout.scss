@@ -17,7 +17,10 @@
 // Cart
 
 .cart-row-grid-layout {
-  grid-template-columns: minmax(0, 136px) minmax(0, 1fr) minmax(0, 102px) minmax(0, 12px);
+  grid-template-columns: minmax(0, 136px) minmax(0, 1fr) minmax(0, 102px) minmax(
+      0,
+      12px
+    );
 }
 
 // Footer
