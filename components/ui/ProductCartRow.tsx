@@ -27,9 +27,7 @@ interface ProductCartRowProps {
     currentAmount: number,
     setCurrentAmount: any
   ) => void;
-  onRemove: (
-    cartId: string,
-  ) => void;
+  onRemove: (cartId: string) => void;
 }
 
 const ProductCartRow: FC<ProductCartRowProps> = ({
@@ -37,7 +35,7 @@ const ProductCartRow: FC<ProductCartRowProps> = ({
   onHaveChanges,
   onIncrease,
   onDecrease,
-  onRemove
+  onRemove,
 }) => {
   const [currentAmount, setCurrentAmount] = useState(cart.amount);
   const { product } = cart;
@@ -68,11 +66,7 @@ const ProductCartRow: FC<ProductCartRowProps> = ({
       <div className="rounded bg-light-gray flex items-center h-[55px] space-x-6 px-4 justify-center text-dark-gray text-center w-max mobile:mx-auto">
         <button
           onClick={() =>
-            onDecrease(
-              cart.cartId,
-              currentAmount,
-              setCurrentAmount
-            )
+            onDecrease(cart.cartId, currentAmount, setCurrentAmount)
           }
         >{`-`}</button>
         <p className="w-[1rem]">{currentAmount}</p>
@@ -87,7 +81,10 @@ const ProductCartRow: FC<ProductCartRowProps> = ({
           }
         >{`+`}</button>
       </div>
-      <div className="cursor-pointer ml-[.75rem]" onClick={() => onRemove(cart.cartId)}>
+      <div
+        className="cursor-pointer ml-[.75rem] w-10 aspect-square "
+        onClick={() => onRemove(cart.cartId)}
+      >
         <CloseIcon />
       </div>
     </div>
